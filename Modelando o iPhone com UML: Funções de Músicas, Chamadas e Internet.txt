@@ -1,0 +1,89 @@
+Para modelar um iPhone usando UML (Unified Modeling Language), focando nas funções de **Músicas**, **Chamadas** e **Internet**, podemos criar um diagrama de classes que representa as principais classes envolvidas e suas interações. Vamos descrever como essas funcionalidades podem ser representadas:
+
+### Diagrama de Classes
+
+#### 1. **Classes principais:**
+
+- **iPhone**
+  - Responsável por agrupar e gerenciar as funcionalidades do dispositivo.
+  - Atributos: `modelo`, `versãoSO`.
+  - Métodos: `ligar()`, `desligar()`, `abrirApp(App app)`.
+
+- **Música**
+  - Representa a função de tocar música no iPhone.
+  - Atributos: `titulo`, `artista`, `duracao`, `playlist`.
+  - Métodos: `tocar()`, `pausar()`, `proximaMusica()`, `musicaAnterior()`.
+
+- **Chamada**
+  - Representa a funcionalidade de realizar e receber chamadas.
+  - Atributos: `numeroTelefone`, `contato`, `statusChamada` (em andamento, encerrada).
+  - Métodos: `fazerChamada(String numero)`, `receberChamada(String numero)`, `encerrarChamada()`.
+
+- **Internet**
+  - Representa a funcionalidade de navegação na internet.
+  - Atributos: `urlAtual`, `historicoNavegacao[]`.
+  - Métodos: `navegar(String url)`, `atualizarPagina()`, `voltarPagina()`, `avancarPagina()`.
+
+- **App**
+  - Uma classe genérica que representa aplicativos instalados no iPhone.
+  - Atributos: `nomeApp`, `versao`.
+  - Métodos: `abrir()`, `fechar()`.
+
+#### 2. **Relacionamentos:**
+
+- **iPhone** agrega **Música**, **Chamada**, **Internet** e **App**:
+  - `iPhone` contém instâncias de `Música`, `Chamada` e `Internet`.
+  - Cada funcionalidade (Música, Chamada, Internet) pode ser acessada através de métodos específicos do `iPhone`.
+
+### Exemplo de Diagrama de Classes:
+
+```plaintext
++-------------------+           +-------------------+           +-------------------+
+|      iPhone       |<>---------|      Música       |           |     Internet      |
+|-------------------|           |-------------------|           |-------------------|
+| - modelo          |           | - titulo          |           | - urlAtual        |
+| - versãoSO        |           | - artista         |           | - historico[]     |
+|-------------------|           | - duracao         |           |-------------------|
+| + ligar()         |           | - playlist[]      |           | + navegar(url)    |
+| + desligar()      |           |-------------------|           | + atualizarPagina()|
+| + abrirApp(App)   |           | + tocar()         |           | + voltarPagina()   |
++-------------------+           | + pausar()        |           | + avancarPagina()  |
+                                 | + proximaMusica() |           +-------------------+
+                                 | + musicaAnterior()|
+                                 +-------------------+
+
++-------------------+             +-------------------+
+|     Chamada       |<>---------->|        App        |
+|-------------------|             |-------------------|
+| - numeroTelefone  |             | - nomeApp         |
+| - contato         |             | - versao          |
+| - statusChamada   |             |-------------------|
+|-------------------|             | + abrir()         |
+| + fazerChamada()  |             | + fechar()        |
+| + receberChamada()|             +-------------------+
+| + encerrarChamada()|
++-------------------+
+```
+
+### Descrição das Classes:
+
+1. **iPhone**: 
+   - Centraliza a operação do dispositivo e serve como ponto de acesso para as funcionalidades de música, chamada e internet.
+
+2. **Música**:
+   - Modela o comportamento do player de música, como tocar, pausar, avançar e retroceder faixas.
+
+3. **Chamada**:
+   - Modela a funcionalidade de realizar e receber chamadas, incluindo a gestão do status das chamadas.
+
+4. **Internet**:
+   - Modela a navegação na web, com capacidade de navegar para URLs, avançar e retroceder no histórico de navegação.
+
+5. **App**:
+   - Representa qualquer aplicativo que pode ser aberto no iPhone, permitindo expansão para outros aplicativos no sistema.
+
+### Possíveis Extensões:
+- **Herança**: Se houver diferentes tipos de aplicativos específicos, como `AppMusica` que herda de `App`, poderíamos modelar isso com herança.
+- **Interface**: Poderíamos criar interfaces para funcionalidades comuns entre as classes, como `Reprodutivel` para classes que podem reproduzir mídia.
+
+Este modelo UML básico pode ser estendido e refinado conforme necessário para adicionar mais detalhes ou funcionalidades.
